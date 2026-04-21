@@ -1,29 +1,46 @@
 (function() {
+    // 1. Carrega a biblioteca HLS para performance e compatibilidade
     const s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
     s.onload = () => {
-        const check = () => {
-            const v = document.querySelector('video');
-            if (v && !document.getElementById('f-layer')) {
-                v.muted = true; v.style.opacity = '0';
+        const monitorar = () => {
+            const videoOriginal = document.querySelector('video');
+            
+            // 2. Se achou o vídeo da Kick e ainda não injetou o nosso layer
+            if (videoOriginal && !document.getElementById('f-layer')) {
+                // Esconde o vídeo original (DMCA Seguro)
+                videoOriginal.muted = true;
+                videoOriginal.style.opacity = '0';
+                videoOriginal.style.pointerEvents = 'none';
+
+                // 3. Cria a nossa tela de cinema
                 const d = document.createElement('div');
                 d.id = 'f-layer';
-                d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;';
-                d.innerHTML = `<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;"></video>`;
-                v.parentElement.appendChild(d);
-                const video = document.getElementById('meu-player');
-                const src = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
+                d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;';
+                
+                // Cria o player interno
+                d.innerHTML = `<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>`;
+                videoOriginal.parentElement.appendChild(d);
+                
+                const meuVideo = document.getElementById('meu-player');
+                const fonteVideo = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
+
+                // 4. Configura o motor de baixa latência
                 if (Hls.isSupported()) {
-                    const hls = new Hls({ 
-                        enableWorker: true, 
+                    const hls = new Hls({
+                        enableWorker: true,
                         lowLatencyMode: true,
-                        backBufferLength: 0 
+                        backBufferLength: 0
                     });
-                    hls.loadSource(src); hls.attachMedia(video);
-                } else { video.src = src; }
+                    hls.loadSource(fonteVideo);
+                    hls.attachMedia(meuVideo);
+                } else if (meuVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    meuVideo.src = fonteVideo;
+                }
             }
         };
-        setInterval(check, 1000);
+        // Verifica a cada 1 segundo se o player da Kick mudou
+        setInterval(monitorar, 1000);
     };
     document.head.appendChild(s);
 })();
