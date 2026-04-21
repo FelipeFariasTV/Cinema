@@ -1,4 +1,13 @@
 (function() {
+    // 1. CONFIGURAÇÃO DA SUA SENHA (Troque '123' pela senha que quiser)
+    var senhaCorreta = '123'; 
+    var acesso = prompt("CINE FARIAS TV - Digite a senha de acesso:");
+
+    if (acesso !== senhaCorreta) {
+        alert("Senha incorreta! Acesso negado.");
+        return;
+    }
+
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
     s.onload = function() {
@@ -12,7 +21,6 @@
                 d.innerHTML = '<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>';
                 v.parentElement.appendChild(d);
                 var mp = document.getElementById('meu-player');
-                // SEU LINK PROFISSIONAL COM CADEADO
                 var src = 'https://cinema.felipefariastv.com.br/live/fariastv/index.m3u8';
                 if (Hls.isSupported()) {
                     var hls = new Hls({ enableWorker: true, lowLatencyMode: true });
