@@ -3,51 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINE FARIAS MOBILE</title>
+    <title>CINE FARIAS TV - OFICIAL</title>
     <style>
         body { background: #0b0b0b; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
-        .card { max-width: 450px; margin: auto; background: #1a1a1a; padding: 25px; border-radius: 20px; border: 2px solid #05ea63; }
-        h1 { color: #05ea63; margin-bottom: 5px; }
-        .setup-step { text-align: left; background: #252525; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 13px; line-height: 1.6; }
-        .code-box { background: #000; color: #05ea63; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; margin: 10px 0; border: 1px solid #333; cursor: pointer; }
-        .btn-action { background: #05ea63; color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
+        .container { max-width: 600px; margin: auto; background: #141414; padding: 25px; border-radius: 20px; border: 2px solid #05ea63; }
+        h1 { color: #05ea63; }
+        .section { background: #1f1f1f; padding: 20px; border-radius: 15px; margin-top: 20px; text-align: left; }
+        .btn-pc { display: inline-block; padding: 15px 25px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; cursor: move; }
+        .copy-box { background: #000; color: #05ea63; padding: 10px; border: 1px dashed #05ea63; border-radius: 10px; cursor: pointer; font-family: monospace; font-size: 11px; word-break: break-all; margin: 10px 0; }
+        .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
+        .step { font-size: 13px; color: #ccc; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🎬 CINE FARIAS TV</h1>
-        <p>Ativação Mobile (Igual ao Vídeo):</p>
-
-        <div class="setup-step">
-            <strong>Passo 1:</strong> Copie o código de ativação.<br>
-            <button class="btn-action" onclick="copyCode()">1. COPIAR CÓDIGO</button>
-            <div id="codeDisplay" class="code-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
-        </div>
-
-        <div class="setup-step">
-            <strong>Passo 2:</strong> Salve esta página como Favorito.<br>
-            <span style="color:#888; font-size: 11px;">(Clique na ✩ ou Compartilhar > Adicionar aos Favoritos)</span>
-        </div>
-
-        <div class="setup-step">
-            <strong>Passo 3 (O SEGREDO):</strong> Edite o favorito que você acabou de criar.<br>
-            No campo <b>URL/Link/Endereço</b>, apague TUDO e cole o código que você copiou.<br>
-            Mude o nome para: <code>000 ATIVAR CINE</code>.
-        </div>
-
-        <div class="setup-step">
-            <strong>Passo 4:</strong> Vá na Kick. Na barra, digite <code>000</code> e clique no favorito que aparecer.
-        </div>
-        
-        <p style="font-size: 11px; color: #888;">Isso força o Chrome a aceitar o javascript sem erro!</p>
+<div class="container">
+    <h1>🎬 CINE FARIAS TV</h1>
+    
+    <div class="section">
+        <h3>💻 NO COMPUTADOR</h3>
+        <p class="step">Arraste o botão abaixo para sua barra de favoritos:</p>
+        <center><a class="btn-pc" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">⭐ ATIVAR CINE FARIAS</a></center>
     </div>
 
-    <script>
-        function copyCode() {
-            var text = document.getElementById('codeDisplay').innerText;
-            navigator.clipboard.writeText(text);
-            alert("Código Copiado! Agora salve esta página nos favoritos e edite-a colando o código no lugar da URL.");
-        }
-    </script>
+    <div class="section">
+        <h3>📱 NO CELULAR</h3>
+        <p class="step">1. Clique para copiar o código:</p>
+        <button class="btn-copy" onclick="copyCode()">COPIAR CÓDIGO</button>
+        <div id="c" class="copy-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
+        <p class="step">2. Salve esta página nos favoritos e edite a URL colando o código.<br>3. Na Kick, digite o nome do favorito e clique na estrela.</p>
+    </div>
+</div>
+<script>
+    function copyCode() {
+        var text = document.getElementById('c').innerText;
+        navigator.clipboard.writeText(text);
+        alert("Copiado! Agora edite o favorito.");
+    }
+</script>
 </body>
 </html>
