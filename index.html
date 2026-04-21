@@ -2,20 +2,43 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instalador Cine Farias</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; padding-top: 100px; }
-        .btn { display: inline-block; padding: 25px 40px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 15px; font-size: 20px; }
+        body { background: #0b0b0b; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 20px; border: 1px solid #05ea63; }
+        h1 { color: #05ea63; font-size: 24px; }
+        .instrucao { background: #333; padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 14px; text-align: left; line-height: 1.6; }
+        .copy-box { background: #000; color: #05ea63; padding: 15px; border: 1px dashed #05ea63; border-radius: 10px; cursor: pointer; word-break: break-all; font-family: monospace; font-size: 12px; }
+        .copy-box:active { background: #05ea63; color: #000; }
+        .aviso { font-size: 12px; color: #888; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <h1>🎬 CINE FARIAS TV - OFICIAL</h1>
-    <p>Arraste o botão abaixo para os seus favoritos:</p>
-    <br>
-    <a class="btn" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">
-        ⭐ ATIVAR CINE FARIAS
-    </a>
-    <br><br>
-    <p style="color:#555">Pronto! Agora com SSL oficial e latência zero.</p>
+    <div class="container">
+        <h1>🎬 CINE FARIAS TV</h1>
+        <p>Siga os passos para liberar o cinema no celular:</p>
+        
+        <div class="instrucao">
+            <strong>1.</strong> Clique na caixa abaixo para copiar o código.<br>
+            <strong>2.</strong> Vá na live da Kick e clique na <b>barra de endereços</b>.<br>
+            <strong>3.</strong> Digite <code>javascript:</code> e <b>cole</b> o código logo em seguida.<br>
+            <strong>4.</strong> Aperte "Ir" no teclado.
+        </div>
+
+        <div class="copy-box" onclick="copyCode()">
+            javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();
+        </div>
+        <p class="aviso">Ao clicar acima, o código é copiado automaticamente.</p>
+    </div>
+
+    <script>
+        function copyCode() {
+            var text = "javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();";
+            navigator.clipboard.writeText(text).then(function() {
+                alert("Código copiado! Agora vá na barra de endereços da Kick, digite 'javascript:' e cole o código.");
+            });
+        }
+    </script>
 </body>
 </html>
