@@ -1,44 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instalador Cine Farias TV</title>
-    <style>
-        body { background: #0b0b0b; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 40px 20px; }
-        .card { max-width: 600px; margin: 0 auto; background: #161616; padding: 30px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #05ea63; text-shadow: 0 0 10px rgba(5, 234, 99, 0.3); }
-        .btn-fav { display: inline-block; padding: 20px 40px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 5px 15px rgba(5, 234, 99, 0.4); cursor: move; }
-        .btn-fav:hover { transform: scale(1.05); background: #04d358; }
-        .warning { background: #ffcc00; color: #000; padding: 15px; border-radius: 10px; margin-top: 30px; font-size: 0.9rem; font-weight: bold; }
-        code { background: #222; padding: 10px; display: block; margin: 10px 0; border-radius: 5px; color: #05ea63; word-break: break-all; font-size: 0.8rem; }
-        ol { text-align: left; display: inline-block; margin-top: 20px; }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <h1>🎬 CINE FARIAS TV</h1>
-        <p>Para assistir sem ban e com qualidade total, siga os passos:</p>
-        
-        <br>
-        <strong>PASSO 1:</strong>
-        <p>Arraste o botão abaixo para sua <b>Barra de Favoritos</b>:</p>
-        
-        <a class="btn-fav" href="javascript:(function(){const s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">
-           ⭐ ATIVAR CINE FARIAS
-        </a>
-
-        <div class="warning">
-            ⚠️ ATENÇÃO: Se a tela ficar cinza na Kick, você precisa permitir "Conteúdo Inseguro" clicando no cadeado ao lado do link da Kick e indo em "Configurações do Site".
-        </div>
-
-        <br><br>
-        <strong>PASSO 2:</strong>
-        <p>Abra sua live na Kick e clique no favorito que você acabou de salvar!</p>
-    </div>
-
-    <p style="color: #666; margin-top: 40px;">Felipe Farias TV - Sistema Anti-Ban 2026</p>
-
-</body>
-</html>
+(function() {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
+    s.onload = () => {
+        const check = () => {
+            const v = document.querySelector('video');
+            if (v && !document.getElementById('f-layer')) {
+                v.muted = true; v.style.opacity = '0';
+                const d = document.createElement('div');
+                d.id = 'f-layer';
+                d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;';
+                d.innerHTML = `<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;"></video>`;
+                v.parentElement.appendChild(d);
+                const video = document.getElementById('meu-player');
+                const src = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
+                if (Hls.isSupported()) {
+                    const hls = new Hls({ 
+                        enableWorker: true, 
+                        lowLatencyMode: true,
+                        backBufferLength: 0 
+                    });
+                    hls.loadSource(src); hls.attachMedia(video);
+                } else { video.src = src; }
+            }
+        };
+        setInterval(check, 1000);
+    };
+    document.head.appendChild(s);
+})();
