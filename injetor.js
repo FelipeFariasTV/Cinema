@@ -21,11 +21,15 @@
 
                 if (Hls.isSupported()) {
                     var hls = new Hls({
-                        capLevelToPlayerSize: true, // Ajusta a qualidade ao tamanho da tela
-                        maxBufferLength: 3,         // Só guarda 3 segundos (não pesa na RAM)
-                        maxMaxBufferLength: 5,
-                        lowLatencyMode: true,
-                        enableWorker: true          // Usa um "ajudante" para o processador não fritar
+                        // CONFIGURAÇÃO PARA ESTABILIDADE (3-5s de atraso)
+                        enableWorker: true,
+                        lowLatencyMode: false,      // Desativado para priorizar fluidez
+                        initialLiveManifestSize: 3, // Espera ter 3 pedaços de vídeo antes de começar
+                        maxBufferLength: 10,        // Mantém até 10s de vídeo guardado
+                        maxMaxBufferLength: 20,
+                        backBufferLength: 30,
+                        liveSyncDuration: 5,        // Alvo de atraso: 5 segundos
+                        liveMaxLatencyDuration: 10  // Só tenta correr se o atraso passar de 10s
                     });
                     hls.loadSource(src);
                     hls.attachMedia(mp);
