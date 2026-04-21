@@ -12,14 +12,14 @@
                 d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;';
                 d.innerHTML = '<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>';
                 vOrig.parentElement.appendChild(d);
-                var meuVideo = document.getElementById('meu-player');
+                var meuPlayer = document.getElementById('meu-player');
                 var fonte = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
                 if (Hls.isSupported()) {
                     var hls = new Hls({ enableWorker: true, lowLatencyMode: true });
                     hls.loadSource(fonte);
-                    hls.attachMedia(meuVideo);
-                } else if (meuVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                    meuVideo.src = fonte;
+                    hls.attachMedia(meuPlayer);
+                } else if (meuPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                    meuPlayer.src = fonte;
                 }
             }
         };
