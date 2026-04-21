@@ -1,46 +1,20 @@
-(function() {
-    // 1. Carrega a biblioteca HLS para performance e compatibilidade
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
-    s.onload = () => {
-        const monitorar = () => {
-            const videoOriginal = document.querySelector('video');
-            
-            // 2. Se achou o vídeo da Kick e ainda não injetou o nosso layer
-            if (videoOriginal && !document.getElementById('f-layer')) {
-                // Esconde o vídeo original (DMCA Seguro)
-                videoOriginal.muted = true;
-                videoOriginal.style.opacity = '0';
-                videoOriginal.style.pointerEvents = 'none';
-
-                // 3. Cria a nossa tela de cinema
-                const d = document.createElement('div');
-                d.id = 'f-layer';
-                d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;';
-                
-                // Cria o player interno
-                d.innerHTML = `<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>`;
-                videoOriginal.parentElement.appendChild(d);
-                
-                const meuVideo = document.getElementById('meu-player');
-                const fonteVideo = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
-
-                // 4. Configura o motor de baixa latência
-                if (Hls.isSupported()) {
-                    const hls = new Hls({
-                        enableWorker: true,
-                        lowLatencyMode: true,
-                        backBufferLength: 0
-                    });
-                    hls.loadSource(fonteVideo);
-                    hls.attachMedia(meuVideo);
-                } else if (meuVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                    meuVideo.src = fonteVideo;
-                }
-            }
-        };
-        // Verifica a cada 1 segundo se o player da Kick mudou
-        setInterval(monitorar, 1000);
-    };
-    document.head.appendChild(s);
-})();
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Instalador Cine Farias</title>
+    <style>
+        body { background: #111; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .botao { display: inline-block; padding: 20px 30px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; cursor: move; }
+    </style>
+</head>
+<body>
+    <h1>🎬 CINE FARIAS TV</h1>
+    <p>Arraste o botão abaixo para a sua barra de favoritos:</p>
+    <br>
+    <a class="botao" href="javascript:(function(){const s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">
+        ⭐ ATIVAR CINE FARIAS
+    </a>
+    <p style="margin-top:50px; color: #666;">Dica: Se a tela ficar cinza, permita "Conteúdo Inseguro" no cadeado do navegador.</p>
+</body>
+</html>
