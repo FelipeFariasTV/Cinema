@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instalador Cine Farias</title>
+    <title>CINE FARIAS MOBILE</title>
     <style>
-        body { background: #0b0b0b; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; }
-        .container { max-width: 500px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 20px; border: 1px solid #05ea63; }
-        h1 { color: #05ea63; font-size: 24px; }
-        .instrucao { background: #333; padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 14px; text-align: left; line-height: 1.6; }
-        .copy-box { background: #000; color: #05ea63; padding: 15px; border: 1px dashed #05ea63; border-radius: 10px; cursor: pointer; word-break: break-all; font-family: monospace; font-size: 12px; }
-        .copy-box:active { background: #05ea63; color: #000; }
-        .aviso { font-size: 12px; color: #888; margin-top: 10px; }
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
+        .card { max-width: 450px; margin: auto; background: #1a1a1a; padding: 25px; border-radius: 20px; border: 2px solid #05ea63; }
+        h1 { color: #05ea63; }
+        .step { text-align: left; background: #252525; padding: 15px; border-radius: 10px; margin-bottom: 15px; font-size: 14px; }
+        .code-box { background: #000; color: #05ea63; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; margin-top: 10px; cursor: pointer; border: 1px solid #333; }
+        .btn-copy { background: #05ea63; color: #000; border: none; padding: 10px; border-radius: 5px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="card">
         <h1>🎬 CINE FARIAS TV</h1>
-        <p>Siga os passos para liberar o cinema no celular:</p>
-        
-        <div class="instrucao">
-            <strong>1.</strong> Clique na caixa abaixo para copiar o código.<br>
-            <strong>2.</strong> Vá na live da Kick e clique na <b>barra de endereços</b>.<br>
-            <strong>3.</strong> Digite <code>javascript:</code> e <b>cole</b> o código logo em seguida.<br>
-            <strong>4.</strong> Aperte "Ir" no teclado.
+        <p>Como ativar no Celular (Sem erro):</p>
+
+        <div class="step">
+            <strong>1.</strong> Clique no botão abaixo para copiar o código:<br>
+            <button class="btn-copy" onclick="copyCode()">COPIAR CÓDIGO</button>
+            <div id="codeDisplay" class="code-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
         </div>
 
-        <div class="copy-box" onclick="copyCode()">
-            javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();
+        <div class="step">
+            <strong>2.</strong> Adicione <b>ESTA PÁGINA</b> aos seus favoritos (clique na estrela do Chrome).
         </div>
-        <p class="aviso">Ao clicar acima, o código é copiado automaticamente.</p>
+
+        <div class="step">
+            <strong>3.</strong> Vá em "Editar Favorito" e, no lugar do <b>Link (URL)</b>, apague tudo e <b>COLE</b> o código que você copiou. Mude o nome para: <code>000 ATIVAR CINE</code>.
+        </div>
+
+        <div class="step">
+            <strong>4.</strong> Agora abra a Kick. Na barra de pesquisa, digite <code>000</code> e clique no favorito que aparecer.
+        </div>
+        
+        <p style="font-size: 11px; color: #888;">Isso evita ter que digitar "javascript:" toda vez!</p>
     </div>
 
     <script>
         function copyCode() {
-            var text = "javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();";
-            navigator.clipboard.writeText(text).then(function() {
-                alert("Código copiado! Agora vá na barra de endereços da Kick, digite 'javascript:' e cole o código.");
-            });
+            var text = document.getElementById('codeDisplay').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Código Copiado! Agora edite o favorito desta página e cole no lugar da URL.");
         }
     </script>
 </body>
