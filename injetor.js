@@ -21,18 +21,19 @@
 
                 if (Hls.isSupported()) {
                     var hls = new Hls({
-                        // CONFIGURAÇÃO PARA ESTABILIDADE (3-5s de atraso)
                         enableWorker: true,
-                        lowLatencyMode: false,      // Desativado para priorizar fluidez
-                        initialLiveManifestSize: 3, // Espera ter 3 pedaços de vídeo antes de começar
-                        maxBufferLength: 10,        // Mantém até 10s de vídeo guardado
-                        maxMaxBufferLength: 20,
-                        backBufferLength: 30,
-                        liveSyncDuration: 5,        // Alvo de atraso: 5 segundos
-                        liveMaxLatencyDuration: 10  // Só tenta correr se o atraso passar de 10s
+                        lowLatencyMode: false, // DESATIVADO TOTAL
+                        // Essas linhas abaixo impedem o "efeito elástico":
+                        liveSyncDurationCount: 5,     // Espera acumular 5 pedaços de vídeo antes de iniciar
+                        liveMaxLatencyDurationCount: 999, // NUNCA tenta alcançar o tempo real
+                        maxBufferLength: 30,          // Pode guardar bastante vídeo na RAM
+                        maxMaxBufferLength: 60,
+                        manifestLoadingMaxRetry: 10
                     });
                     hls.loadSource(src);
                     hls.attachMedia(mp);
+                    
+                    // Garante que o vídeo não tente pular frames para sincronizar
                     hls.on(Hls.Events.ERROR, function() { hls.recoverMediaError(); });
                 } else { mp.src = src; }
             }
