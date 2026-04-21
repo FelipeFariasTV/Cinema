@@ -1,20 +1,32 @@
 (function() {
-    const monitorar = () => {
-        const v = document.querySelector('video');
-        if (v && !document.getElementById('f-layer')) {
-            v.muted = true; 
-            v.style.opacity = '0'; 
-            const d = document.createElement('div');
-            d.id = 'f-layer';
-            d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;';
-            d.innerHTML = `
-                <div style="text-align:center;width:100%;height:100%;">
-                    <video id="meu-player" controls autoplay style="width:100%;height:100%;object-fit:contain;">
-                        <source src="http://187.45.255.102:8888/live/fariastv/index.m3u8" type="application/x-mpegURL">
-                    </video>
-                </div>`;
-            v.parentElement.appendChild(d);
-        }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
+    s.onload = () => {
+        const monitorar = () => {
+            const vOriginal = document.querySelector('video');
+            if (vOriginal && !document.getElementById('f-layer')) {
+                vOriginal.muted = true;
+                vOriginal.style.opacity = '0';
+                
+                const d = document.createElement('div');
+                d.id = 'f-layer';
+                d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;';
+                d.innerHTML = `<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>`;
+                vOriginal.parentElement.appendChild(d);
+                
+                const meuVideo = document.getElementById('meu-player');
+                const fonte = 'http://187.45.255.102:8888/live/fariastv/index.m3u8';
+
+                if (Hls.isSupported()) {
+                    const hls = new Hls({ enableWorker: true, lowLatencyMode: true });
+                    hls.loadSource(fonte);
+                    hls.attachMedia(meuVideo);
+                } else if (meuVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    meuVideo.src = fonte;
+                }
+            }
+        };
+        setInterval(monitorar, 1000);
     };
-    setInterval(monitorar, 1000);
+    document.head.appendChild(s);
 })();
