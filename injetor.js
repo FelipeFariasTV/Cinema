@@ -1,18 +1,5 @@
 (function() {
-    // 1. LINK DA SUA LIVE (Truque para não abrir o App)
-    // Adicionamos um parâmetro de busca no final (?mobile_redirect=false) 
-    // Isso geralmente confunde o sistema de "abrir no app" do celular.
-    var linkLive = "https://kick.com/felipefariastv?mobile_redirect=false"; 
-    
-    if (!window.location.href.includes("kick.com/felipefariastv")) {
-        if (confirm("Você não está na live! Deseja ir para o navegador agora para ativar o Cine Farias?")) {
-            // Usamos o replace para tentar manter a navegação dentro do browser atual
-            window.location.replace(linkLive);
-        }
-        return;
-    }
-
-    // 2. SEGURANÇA
+    // 1. SEGURANÇA
     var senhaCorreta = 'calvo123'; 
     var acesso = prompt("CINE FARIAS TV - Senha:");
     if (acesso !== senhaCorreta) return;
@@ -24,6 +11,7 @@
             var v = document.querySelector('video');
             
             if (v && !document.getElementById('f-layer')) {
+                // Bloqueio por som desligado
                 if (v.muted || v.volume === 0) {
                     if (!document.getElementById('aviso-config')) {
                         var overlay = document.createElement('div');
@@ -38,7 +26,7 @@
                         aviso.id = 'aviso-config';
                         aviso.style.cssText = 'position:absolute;top:'+posicaoTopo+';left:50%;transform:translate(-50%, -50%);width:' + largura + ';background:#141414;border:2px solid #05ea63;border-radius:12px;padding:12px;color:#fff;font-family:sans-serif;text-align:center;z-index:9999;box-shadow:0 0 15px #000;pointer-events:auto;';
                         
-                        aviso.innerHTML = '<h4 style="color:#05ea63;margin:0 0 8px 0;font-size:13px;letter-spacing:1px;">🎬 QUASE PRONTO!</h4>' +
+                        aviso.innerHTML = '<h4 style="color:#05ea63;margin:0 0 8px 0;font-size:13px;">🎬 QUASE PRONTO!</h4>' +
                                         '<div style="text-align:left;background:#000;padding:8px;border-radius:8px;border:1px solid #333;font-size:10px;line-height:1.2;">' +
                                         '<p style="margin:0 0 5px 0;"><b>1. LIGUE O SOM:</b> Ative o áudio para liberar.</p>' +
                                         '<p style="margin:0;"><b>2. ECONOMIA:</b> Mude para <b>160p</b> na engrenagem.</p>' +
@@ -54,6 +42,7 @@
                 var ov = document.getElementById('aviso-overlay'); if (ov) ov.remove();
                 var av = document.getElementById('aviso-config'); if (av) av.remove();
 
+                // Configura View e Economia
                 v.muted = false; v.volume = 0.01;
                 v.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;transform:scale(0);';
 
