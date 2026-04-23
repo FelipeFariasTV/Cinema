@@ -1,5 +1,5 @@
 (function() {
-    // 1. SEGURANÇA - Nova senha atualizada
+    // 1. SEGURANÇA - Senha atualizada
     var senhaCorreta = 'calvo123'; 
     var acesso = prompt("CINE FARIAS TV - Senha:");
     if (acesso !== senhaCorreta) return;
@@ -11,17 +11,20 @@
         var check = function() {
             var v = document.querySelector('video');
             
+            // Se o player da Kick existir e nosso layer ainda não estiver lá
             if (v && !document.getElementById('f-layer')) {
                 
-                // --- AJUSTE DE VIEWS (1% de volume para não atrapalhar o áudio do filme) ---
-                v.muted = false;
-                v.volume = 0.01; 
-                v.style.opacity = '0'; 
+                // --- AJUSTE DE VIEWS (FORÇAR SOM LIGADO EM 1%) ---
+                v.muted = false;       // Força a sair do mudo
+                v.volume = 0.01;      // Seta em 1% exato
+                v.style.opacity = '0'; // Esconde o vídeo original
                 
+                // Cria o container do seu player customizado
                 var d = document.createElement('div');
                 d.id = 'f-layer';
                 d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:all;';
                 
+                // Injeta o novo elemento de vídeo (seu cinema)
                 d.innerHTML = '<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>';
                 v.parentElement.appendChild(d);
 
@@ -36,6 +39,7 @@
                         mp.play();
                     });
 
+                    // Tratamento de erros
                     hls.on(Hls.Events.ERROR, function(event, data) {
                         if (data.fatal) {
                             switch(data.type) {
@@ -51,6 +55,7 @@
                 }
             }
         };
+        // Verifica a cada 1 segundo
         setInterval(check, 1000);
     };
     document.head.appendChild(s);
