@@ -5,14 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CINE FARIAS TV</title>
     <style>
+        /* Começa escondido para ninguém ver o conteúdo sem senha */
+        #main-content { display: none; }
+        
         body { background: #0b0b0b; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .container { width: 100%; max-width: 450px; background: #141414; border-radius: 20px; border: 2px solid #05ea63; padding: 20px; box-sizing: border-box; box-shadow: 0 0 30px rgba(5, 234, 99, 0.1); }
         
         h1 { color: #05ea63; font-size: 22px; text-align: center; margin: 0 0 5px 0; letter-spacing: 1px; }
         
-        /* AVISO IMPORTANTE: NAVEGADOR */
-        .aviso-navegador { background: rgba(255, 0, 0, 0.15); border: 1px solid #ff4444; color: #ff4444; padding: 10px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; }
+        /* DESTAQUE DA SENHA */
+        .aviso-senha { background: #1f1f1f; border: 1px dashed #05ea63; color: #fff; padding: 10px; border-radius: 10px; font-size: 14px; text-align: center; margin-bottom: 15px; }
+        .senha-txt { color: #05ea63; font-weight: bold; font-family: monospace; font-size: 18px; }
 
+        .aviso-navegador { background: rgba(255, 0, 0, 0.15); border: 1px solid #ff4444; color: #ff4444; padding: 10px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; }
         .aviso-reuso { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; padding: 10px; border-radius: 10px; font-size: 12px; text-align: center; margin-bottom: 20px; }
 
         .video-container { position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #333; margin-bottom: 20px; background: #000; }
@@ -34,8 +39,12 @@
 </head>
 <body>
 
-<div class="container">
+<div id="main-content" class="container">
     <h1>🎬 CINE FARIAS TV</h1>
+
+    <div class="aviso-senha">
+        🔑 A SENHA DE ACESSO É: <span class="senha-txt">calvo123</span>
+    </div>
 
     <div class="aviso-navegador">
         ⚠️ ATENÇÃO: O Cine Farias NÃO funciona no App da Kick. Use o Chrome ou Safari!
@@ -76,6 +85,21 @@
 </div>
 
 <script>
+    function autenticar() {
+        var senhaCorreta = "calvo123";
+        // Mostra o conteúdo primeiro para ele ver a senha antes do prompt
+        document.getElementById('main-content').style.display = 'block';
+        detectDevice();
+        
+        var tentativa = prompt("CINE FARIAS TV - Digite a senha que aparece na tela:");
+        
+        if (tentativa !== senhaCorreta) {
+            alert("Senha incorreta! Você não tem permissão para acessar o tutorial.");
+            document.getElementById('main-content').style.display = 'none';
+            window.location.reload();
+        }
+    }
+
     function detectDevice() {
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
         if (isMobile) {
@@ -96,7 +120,7 @@
         alert("Copiado! Agora cole na URL do seu favorito no navegador.");
     }
 
-    window.onload = detectDevice;
+    window.onload = autenticar;
 </script>
 
 </body>
