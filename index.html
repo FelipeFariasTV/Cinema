@@ -3,36 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CINE FARIAS TV</title>
+    <title>CINE FARIAS TV - OFICIAL</title>
     <style>
-        /* CONFIGURAÇÃO GERAL */
-        body { background: #0b0b0b; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 900px; background: #141414; padding: 15px; border-radius: 15px; border: 2px solid #05ea63; box-sizing: border-box; }
-        h1 { color: #05ea63; font-size: 20px; margin: 0 0 15px 0; text-align: center; }
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; display: flex; justify-content: center; position: relative; min-height: 100vh; }
+        .container { width: 100%; max-width: 900px; background: #141414; padding: 20px; border-radius: 15px; border: 2px solid #05ea63; box-sizing: border-box; margin-bottom: 50px; }
+        h1 { color: #05ea63; font-size: 24px; margin: 0 0 10px 0; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
         
-        .flex-row { display: flex; gap: 15px; }
-        .section { flex: 1; background: #1f1f1f; padding: 15px; border-radius: 12px; border: 1px solid #333; }
+        /* AVISO DE REUTILIZAÇÃO */
+        .aviso-reuso { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; padding: 12px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 20px; font-weight: bold; }
+
+        .flex-row { display: flex; gap: 20px; }
+        .section { flex: 1; background: #1f1f1f; padding: 18px; border-radius: 12px; border: 1px solid #333; display: flex; flex-direction: column; }
         
-        h3 { color: #05ea63; font-size: 16px; margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 10px; border-radius: 8px; overflow: hidden; background: #000; }
+        h3 { color: #05ea63; font-size: 16px; margin: 0 0 12px 0; text-align: center; border-bottom: 1px solid #333; padding-bottom: 8px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 15px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid #05ea63; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
-        .instructions { font-size: 12px; color: #ccc; margin-bottom: 10px; }
-        .instructions ol { padding-left: 20px; margin: 5px 0; }
+        .instructions { font-size: 13px; color: #ccc; margin-bottom: 15px; flex-grow: 1; }
+        .instructions ol { padding-left: 22px; margin: 10px 0; }
+        .instructions li { margin-bottom: 8px; line-height: 1.4; }
         
-        .btn-pc { display: block; padding: 12px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; text-align: center; font-size: 13px; }
-        .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 12px; }
-        .copy-box { background: #000; color: #05ea63; padding: 8px; border: 1px dashed #05ea63; border-radius: 8px; font-family: monospace; font-size: 10px; word-break: break-all; margin-top: 10px; }
+        .btn-pc { display: block; padding: 15px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; text-align: center; font-size: 13px; transition: 0.3s; }
+        .btn-pc:hover { background: #04d65a; transform: scale(1.02); }
+        
+        .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; }
+        .btn-copy:hover { background: #05ea63; color: #000; }
+        
+        .copy-box { background: #000; color: #05ea63; padding: 10px; border: 1px dashed #05ea63; border-radius: 8px; font-family: monospace; font-size: 10px; word-break: break-all; margin-top: 10px; }
 
-        /* AJUSTE EXCLUSIVO PARA CELULAR */
+        .footer-credito { position: fixed; bottom: 10px; right: 15px; font-size: 10px; color: #555; font-weight: bold; pointer-events: none; }
+
         @media (max-width: 768px) {
-            .flex-row { flex-direction: column; } /* Coloca um embaixo do outro */
-            .container { padding: 10px; border-width: 1px; }
-            h1 { font-size: 18px; margin-bottom: 10px; }
-            .section { padding: 10px; margin-bottom: 10px; }
-            .instructions { font-size: 11px; }
-            .video-wrapper { margin-bottom: 8px; }
-            /* Se quiser esconder o PC no Celular e o Celular no PC, use as classes abaixo */
+            .flex-row { flex-direction: column; }
+            .container { padding: 15px; }
+            h1 { font-size: 20px; }
+            .footer-credito { position: relative; text-align: center; margin-top: 20px; right: 0; bottom: 0; }
         }
     </style>
 </head>
@@ -41,37 +46,45 @@
 <div class="container">
     <h1>🎬 CINE FARIAS TV</h1>
 
+    <div class="aviso-reuso">
+        💡 DICA: Você só precisa configurar UMA VEZ. Nas próximas lives, basta entrar na Kick e clicar no seu favorito salvo!
+    </div>
+
     <div class="flex-row">
         <div class="section">
-            <h3>💻 PC / NOTEBOOK</h3>
+            <h3>💻 NO COMPUTADOR</h3>
             <div class="instructions">
                 <ol>
-                    <li>Barra de Favoritos ativa (Ctrl+Shift+B).</li>
-                    <li>Arraste o botão abaixo para a barra.</li>
+                    <li>Ative a <b>Barra de Favoritos</b> (Ctrl+Shift+B).</li>
+                    <li>Arraste o botão verde abaixo para a sua barra.</li>
+                    <li>Na live da Kick, clique no favorito criado.</li>
                 </ol>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/ID_VIDEO_PC" title="Tutorial PC"></iframe>
+                <iframe src="https://www.youtube.com/embed/BkA0dBzss-w" title="Tutorial PC"></iframe>
             </div>
-            <a class="btn-pc" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">⭐ ARRASTAR FAVORITO</a>
+            <a class="btn-pc" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">⭐ ARRASTAR PARA FAVORITOS</a>
         </div>
 
         <div class="section">
-            <h3>📱 CELULAR</h3>
+            <h3>📱 NO CELULAR</h3>
             <div class="instructions">
                 <ol>
-                    <li>Copie o código abaixo.</li>
-                    <li>Crie um favorito e cole o código na URL.</li>
+                    <li>Copie o código clicando no botão abaixo.</li>
+                    <li>Crie um favorito e cole o código no lugar da URL.</li>
+                    <li>Na live da Kick, digite o nome do favorito e clique.</li>
                 </ol>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/ID_VIDEO_CELULAR" title="Tutorial Celular"></iframe>
+                <iframe src="https://www.youtube.com/embed/Im3JL1E8eWw" title="Tutorial Celular"></iframe>
             </div>
             <button class="btn-copy" onclick="copyCode()">📋 COPIAR CÓDIGO</button>
             <div id="code-text" class="copy-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
         </div>
     </div>
 </div>
+
+<div class="footer-credito">Desenvolvido por Felipe Farias TV</div>
 
 <script>
     function copyCode() {
@@ -82,7 +95,7 @@
         elem.select();
         document.execCommand("copy");
         document.body.removeChild(elem);
-        alert("Copiado! Siga o vídeo tutorial.");
+        alert("Código copiado! Agora é só colar no seu favorito.");
     }
 </script>
 
