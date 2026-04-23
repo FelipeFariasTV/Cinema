@@ -5,53 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CINE FARIAS TV - OFICIAL</title>
     <style>
-        body { background: #0b0b0b; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: #141414; padding: 30px; border-radius: 20px; border: 2px solid #05ea63; box-shadow: 0 0 20px rgba(5, 234, 99, 0.3); }
-        h1 { color: #05ea63; text-shadow: 0 0 10px rgba(5, 234, 99, 0.5); }
-        .section { background: #1f1f1f; padding: 20px; border-radius: 15px; margin-top: 25px; text-align: left; border: 1px solid #333; }
-        .btn-pc { display: inline-block; padding: 18px 30px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; cursor: move; transition: 0.3s; }
-        .btn-pc:hover { transform: scale(1.05); background: #04c052; }
-        .copy-box { background: #000; color: #05ea63; padding: 12px; border: 1px dashed #05ea63; border-radius: 10px; font-family: monospace; font-size: 11px; word-break: break-all; margin: 15px 0; }
-        .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
-        .step { font-size: 14px; color: #bbb; margin-bottom: 8px; }
-        strong { color: #05ea63; }
+        body { background: #0b0b0b; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 15px; }
+        .container { max-width: 600px; margin: auto; background: #141414; padding: 25px; border-radius: 20px; border: 2px solid #05ea63; box-shadow: 0 0 20px rgba(5, 234, 99, 0.2); }
+        h1 { color: #05ea63; margin-bottom: 5px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px 0; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .section { background: #1f1f1f; padding: 15px; border-radius: 15px; margin-top: 20px; text-align: left; border: 1px solid #333; }
+        .btn-pc { display: inline-block; padding: 15px 25px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 10px; cursor: move; }
+        .copy-box { background: #000; color: #05ea63; padding: 10px; border: 1px dashed #05ea63; border-radius: 10px; font-family: monospace; font-size: 11px; word-break: break-all; margin: 10px 0; }
+        .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
+        .step { font-size: 13px; color: #ccc; margin-bottom: 8px; }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>🎬 CINE FARIAS TV</h1>
-    <p style="color: #888;">Qualidade Premium & Anti-Anúncios</p>
-    
+    <p style="color: #888; font-size: 14px;">Assista agora direto na Kick!</p>
+
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/ID_DO_VIDEO_AQUI" frameborder="0" allowfullscreen></iframe>
+    </div>
+
     <div class="section">
-        <h3>💻 NO COMPUTADOR (Barra de Favoritos)</h3>
-        <p class="step">1. Ative sua barra de favoritos (Ctrl+Shift+B).</p>
-        <p class="step">2. <strong>Arraste</strong> o botão verde abaixo para sua barra de favoritos:</p>
+        <h3>💻 NO COMPUTADOR</h3>
+        <p class="step">Arraste o botão para sua barra de favoritos:</p>
         <center>
             <a class="btn-pc" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">⭐ ATIVAR CINE FARIAS</a>
         </center>
     </div>
 
     <div class="section">
-        <h3>📱 NO CELULAR (Favorito Manual)</h3>
-        <p class="step">1. Copie o código abaixo:</p>
+        <h3>📱 NO CELULAR</h3>
+        <p class="step">1. Copie o código:</p>
         <button class="btn-copy" onclick="copyCode()">COPIAR CÓDIGO</button>
         <div id="c" class="copy-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
-        <p class="step">2. Crie um favorito qualquer com o nome <strong>CINE</strong>.</p>
-        <p class="step">3. Edite o endereço (URL) desse favorito e cole o código acima.</p>
-        <p class="step">4. Na live da Kick, digite "CINE" na barra de buscas e clique no favorito.</p>
+        <p class="step">2. Salve um favorito e cole o código na URL.</p>
     </div>
 </div>
-
 <script>
     function copyCode() {
         var text = document.getElementById('c').innerText;
-        var temp = document.createElement("textarea");
-        document.body.appendChild(temp);
-        temp.value = text;
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
-        alert("Código copiado! Agora siga os passos do celular.");
+        navigator.clipboard.writeText(text);
+        alert("Copiado! Agora edite o favorito.");
     }
 </script>
 </body>
