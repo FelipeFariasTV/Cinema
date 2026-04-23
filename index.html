@@ -2,31 +2,37 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CINE FARIAS TV - OFICIAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CINE FARIAS TV</title>
     <style>
-        body { background: #0b0b0b; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; }
-        .container { max-width: 900px; margin: auto; background: #141414; padding: 15px; border-radius: 15px; border: 2px solid #05ea63; }
-        h1 { color: #05ea63; font-size: 22px; margin: 0 0 15px 0; }
+        /* CONFIGURAÇÃO GERAL */
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 900px; background: #141414; padding: 15px; border-radius: 15px; border: 2px solid #05ea63; box-sizing: border-box; }
+        h1 { color: #05ea63; font-size: 20px; margin: 0 0 15px 0; text-align: center; }
         
-        /* Layout em colunas que vira linha no celular */
-        .flex-row { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        .section { flex: 1; min-width: 300px; background: #1f1f1f; padding: 15px; border-radius: 12px; border: 1px solid #333; text-align: left; }
+        .flex-row { display: flex; gap: 15px; }
+        .section { flex: 1; background: #1f1f1f; padding: 15px; border-radius: 12px; border: 1px solid #333; }
         
-        h3 { color: #05ea63; font-size: 16px; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; margin: 10px 0; border-radius: 8px; overflow: hidden; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        h3 { color: #05ea63; font-size: 16px; margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 10px; border-radius: 8px; overflow: hidden; background: #000; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
         .instructions { font-size: 12px; color: #ccc; margin-bottom: 10px; }
-        .instructions ol { padding-left: 18px; margin: 5px 0; }
+        .instructions ol { padding-left: 20px; margin: 5px 0; }
         
         .btn-pc { display: block; padding: 12px; background: #05ea63; color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; text-align: center; font-size: 13px; }
         .btn-copy { background: #333; color: #fff; border: 1px solid #05ea63; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; font-size: 12px; }
         .copy-box { background: #000; color: #05ea63; padding: 8px; border: 1px dashed #05ea63; border-radius: 8px; font-family: monospace; font-size: 10px; word-break: break-all; margin-top: 10px; }
 
-        @media (max-width: 600px) {
-            .section { min-width: 100%; padding: 10px; }
-            h1 { font-size: 18px; }
+        /* AJUSTE EXCLUSIVO PARA CELULAR */
+        @media (max-width: 768px) {
+            .flex-row { flex-direction: column; } /* Coloca um embaixo do outro */
+            .container { padding: 10px; border-width: 1px; }
+            h1 { font-size: 18px; margin-bottom: 10px; }
+            .section { padding: 10px; margin-bottom: 10px; }
+            .instructions { font-size: 11px; }
+            .video-wrapper { margin-bottom: 8px; }
+            /* Se quiser esconder o PC no Celular e o Celular no PC, use as classes abaixo */
         }
     </style>
 </head>
@@ -37,16 +43,15 @@
 
     <div class="flex-row">
         <div class="section">
-            <h3>💻 COMPUTADOR</h3>
+            <h3>💻 PC / NOTEBOOK</h3>
             <div class="instructions">
                 <ol>
-                    <li>Ative a <b>Barra de Favoritos</b> (Ctrl+Shift+B).</li>
+                    <li>Barra de Favoritos ativa (Ctrl+Shift+B).</li>
                     <li>Arraste o botão abaixo para a barra.</li>
-                    <li>Na live, clique no favorito.</li>
                 </ol>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/ID_VIDEO_PC" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/ID_VIDEO_PC" title="Tutorial PC"></iframe>
             </div>
             <a class="btn-pc" href="javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();">⭐ ARRASTAR FAVORITO</a>
         </div>
@@ -57,11 +62,10 @@
                 <ol>
                     <li>Copie o código abaixo.</li>
                     <li>Crie um favorito e cole o código na URL.</li>
-                    <li>Na live, digite o nome do favorito e clique.</li>
                 </ol>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/ID_VIDEO_CELULAR" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/ID_VIDEO_CELULAR" title="Tutorial Celular"></iframe>
             </div>
             <button class="btn-copy" onclick="copyCode()">📋 COPIAR CÓDIGO</button>
             <div id="code-text" class="copy-box">javascript:(function(){var s=document.createElement('script');s.src='https://felipefariastv.github.io/Cinema/injetor.js?v='+Math.random();document.body.appendChild(s);})();</div>
@@ -78,7 +82,7 @@
         elem.select();
         document.execCommand("copy");
         document.body.removeChild(elem);
-        alert("Copiado! Siga o tutorial do vídeo.");
+        alert("Copiado! Siga o vídeo tutorial.");
     }
 </script>
 
