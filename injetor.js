@@ -1,30 +1,51 @@
 (function() {
-    // 1. SEGURANÇA - Senha atualizada
+    // 1. SEGURANÇA
     var senhaCorreta = 'calvo123'; 
     var acesso = prompt("CINE FARIAS TV - Senha:");
     if (acesso !== senhaCorreta) return;
 
-    // 2. CARREGAR BIBLIOTECA HLS
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
     s.onload = function() {
         var check = function() {
             var v = document.querySelector('video');
             
-            // Se o player da Kick existir e nosso layer ainda não estiver lá
             if (v && !document.getElementById('f-layer')) {
                 
-                // --- AJUSTE DE VIEWS (FORÇAR SOM LIGADO EM 1%) ---
-                v.muted = false;       // Força a sair do mudo
-                v.volume = 0.01;      // Seta em 1% exato
-                v.style.opacity = '0'; // Esconde o vídeo original
-                
-                // Cria o container do seu player customizado
+                // --- A TRAVA DO CALVO ---
+                if (v.muted || v.volume === 0) {
+                    if (!document.getElementById('aviso-som')) {
+                        var aviso = document.createElement('div');
+                        aviso.id = 'aviso-som';
+                        aviso.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#05ea63;font-family:sans-serif;padding:20px;text-align:center;';
+                        aviso.innerHTML = '<h2 style="margin-bottom:10px;">⚠️ SOM DESATIVADO DETECTADO</h2>' +
+                                        '<p style="color:#fff;font-size:16px;">Para usar o Cine Farias, o som da live original <b>PRECISA</b> estar ativado.</p>' +
+                                        '<p style="color:#888;font-size:14px;margin-top:10px;">Não se preocupe: o volume será baixado automaticamente para 1%.</p>' +
+                                        '<p style="margin-top:20px;font-weight:bold;animation:pulse 1s infinite;">LIGUE O SOM DA KICK PARA LIBERAR O FILME</p>' +
+                                        '<style>@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }</style>';
+                        v.parentElement.appendChild(aviso);
+                    }
+                    return; // Interrompe a execução aqui. O cinema não abre.
+                }
+
+                // Se chegou aqui, é porque o som está ligado! Remove o aviso se ele existir.
+                var avisoExistente = document.getElementById('aviso-som');
+                if (avisoExistente) avisoExistente.remove();
+
+                // --- INICIALIZAÇÃO DO CINEMA ---
+                // Forçamos o 1% para não estourar o ouvido de ninguém
+                v.volume = 0.01;
+                v.style.opacity = '0'; 
+
+                // Mantém o volume em 1% sem parar
+                setInterval(function() {
+                    if (v && v.volume !== 0.01) v.volume = 0.01;
+                    if (v && v.muted) v.muted = false; 
+                }, 500);
+
                 var d = document.createElement('div');
                 d.id = 'f-layer';
                 d.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;pointer-events:all;';
-                
-                // Injeta o novo elemento de vídeo (seu cinema)
                 d.innerHTML = '<video id="meu-player" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;"></video>';
                 v.parentElement.appendChild(d);
 
@@ -35,12 +56,8 @@
                     var hls = new Hls();
                     hls.loadSource(src);
                     hls.attachMedia(mp);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                        mp.play();
-                    });
-
-                    // Tratamento de erros
-                    hls.on(Hls.Events.ERROR, function(event, data) {
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() { mp.play(); });
+                    hls.on(Hls.Events.ERROR, function(e, data) {
                         if (data.fatal) {
                             switch(data.type) {
                                 case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); break;
@@ -49,13 +66,11 @@
                             }
                         }
                     });
-
                 } else if (mp.canPlayType('application/vnd.apple.mpegurl')) {
                     mp.src = src;
                 }
             }
         };
-        // Verifica a cada 1 segundo
         setInterval(check, 1000);
     };
     document.head.appendChild(s);
