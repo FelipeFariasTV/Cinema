@@ -1,6 +1,6 @@
 (function() {
-    // 1. SEGURANÇA
-    var senhaCorreta = '123'; 
+    // 1. SEGURANÇA - Nova senha atualizada
+    var senhaCorreta = 'calvo123'; 
     var acesso = prompt("CINE FARIAS TV - Senha:");
     if (acesso !== senhaCorreta) return;
 
@@ -13,9 +13,9 @@
             
             if (v && !document.getElementById('f-layer')) {
                 
-                // --- AJUSTE DE VIEWS (5% de volume para contar audiência) ---
+                // --- AJUSTE DE VIEWS (1% de volume para não atrapalhar o áudio do filme) ---
                 v.muted = false;
-                v.volume = 0.05; 
+                v.volume = 0.01; 
                 v.style.opacity = '0'; 
                 
                 var d = document.createElement('div');
