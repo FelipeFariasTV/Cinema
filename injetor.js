@@ -10,19 +10,39 @@
             var v = document.querySelector('video');
             
             if (v && !document.getElementById('f-layer')) {
+                
+                // --- AVISO DE CONFIGURAÇÃO (SOM + QUALIDADE) ---
                 if (v.muted || v.volume === 0) {
-                    // (Aquele bloco do aviso de som continua aqui se você quiser, 
-                    // mas vou focar na economia de recursos agora)
+                    if (!document.getElementById('aviso-config')) {
+                        var aviso = document.createElement('div');
+                        aviso.id = 'aviso-config';
+                        aviso.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#05ea63;font-family:sans-serif;padding:30px;text-align:center;';
+                        aviso.innerHTML = '<h2 style="margin-bottom:15px;">🎬 QUASE PRONTO!</h2>' +
+                                        '<div style="text-align:left; color:#fff; background:#1a1a1a; padding:20px; border-radius:15px; border:1px solid #05ea63;">' +
+                                        '<p><b>1. LIGUE O SOM:</b> A live da Kick precisa estar com som para o filme carregar.</p>' +
+                                        '<p style="font-size:12px; color:#888; margin-bottom:15px;">(O volume será baixado para 1% automaticamente)</p>' +
+                                        '<p><b>2. ECONOMIZE BATERIA:</b> Se estiver no celular, mude a qualidade da Kick para <b>160p</b> na engrenagem antes de ativar.</p>' +
+                                        '</div>' +
+                                        '<p style="margin-top:25px; font-weight:bold; color:#05ea63; animation:pulse 1s infinite;">LIGUE O SOM DA KICK PARA COMEÇAR</p>' +
+                                        '<style>@keyframes pulse { 0%{opacity:1;} 50%{opacity:0.4;} 100%{opacity:1;} }</style>';
+                        v.parentElement.appendChild(aviso);
+                    }
+                    return; 
                 }
 
-                // --- MODO ECONOMIA DE CELULAR (O PULO DO GATO) ---
+                var avisoExistente = document.getElementById('aviso-config');
+                if (avisoExistente) avisoExistente.remove();
+
+                // --- ATIVAÇÃO DO PLAYER ---
                 v.muted = false;
                 v.volume = 0.01;
-                
-                // Em vez de só esconder, vamos diminuir o vídeo original para quase nada
-                // e dizer ao navegador para não renderizar (display: none as vezes corta o som, 
-                // então usamos transform: scale(0) que é mais seguro)
-                v.style.cssText = 'position:fixed; top:-9999px; left:-9999px; width:1px; height:1px; transform:scale(0); pointer-events:none;';
+                // Esconde e tira o peso da renderização
+                v.style.cssText = 'position:fixed; top:-9999px; left:-9999px; width:1px; height:1px; transform:scale(0);';
+
+                setInterval(function() {
+                    if (v && v.volume !== 0.01) v.volume = 0.01;
+                    if (v && v.muted) v.muted = false; 
+                }, 500);
 
                 var d = document.createElement('div');
                 d.id = 'f-layer';
@@ -39,12 +59,6 @@
                     hls.attachMedia(mp);
                     hls.on(Hls.Events.MANIFEST_PARSED, function() { mp.play(); });
                 }
-                
-                // Manter a trava de 1%
-                setInterval(function() {
-                    if (v && v.volume !== 0.01) v.volume = 0.01;
-                    if (v && v.muted) v.muted = false;
-                }, 500);
             }
         };
         setInterval(check, 1000);
